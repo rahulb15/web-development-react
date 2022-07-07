@@ -14,13 +14,13 @@ class UserController {
     if (!errors.isEmpty()) {
       return res.status(422).jsonp(errors.array());
     } else {
-      const { name, email, password, password_confirmation, tc, status } =
+      const { name, email, password, password_confirmation, status } =
         req.body;
       const user = await userModel.findOne({ email: email });
       if (user) {
         res.send({ status: "failed", message: "Email already existes" });
       } else {
-        if (name && email && password && password_confirmation && tc) {
+        if (name && email && password && password_confirmation) {
           if (password === password_confirmation) {
             try {
               const salt = await bcrypt.genSalt(10);
@@ -29,7 +29,6 @@ class UserController {
                 name: name,
                 email: email,
                 password: hashPassword,
-                tc: tc,
                 status: "Inactive",
               });
               await doc.save();
@@ -94,16 +93,18 @@ class UserController {
             });
           }
         } else {
-          res.send({
-            status: "failed",
-            message: "You are not a registered User",
-          });
+            res.send({
+              status: "failed",
+              message: "You are not a registered User",
+             });
+         
         }
       } else {
         res.send({ status: "failed", message: "All fields are required" });
       }
     } catch (error) {
-      res.send({ status: "failed", message: "unable to Login" });
+        res.send({ status: "failed", message: "unable to Login" });
+      
     }
   };
 

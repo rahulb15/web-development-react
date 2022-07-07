@@ -10,7 +10,7 @@ const Home = () => {
                     <div className="col-md-12">
                         <div className="home-content">
                             <div className="home-form">
-                                <h1 className="form-title" width="100%">Welcome to the <span className="text-primary">Tarsier</span></h1>
+                                <h1 className="form-title" width="100%"><span className="text-primary">Tarsier</span></h1>
                                 <img src={image} alalt="Avatar" className="avatar" />
                             </div>
                         </div>
